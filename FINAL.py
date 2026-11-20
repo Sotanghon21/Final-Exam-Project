@@ -1,14 +1,62 @@
+import random
+
+TIPS = [
+    "Python is named after Monty Python, not the snake! 🐍",
+    "Indentation errors are the #1 beginner bug. Use 4 spaces!",
+    "A single = stores a value. A double == compares values.",
+    "range(1, 6) stops BEFORE 6. Watch out for off-by-one mistakes!",
+    "Read error messages from the bottom up. The last line says what went wrong.",
+]
+
+QUIZ = [
+    ("What does print('Hi') do?", ["Saves a file", "Shows Hi on the screen", "Asks for input"], "B", "print() displays output."),
+    ("Which is a valid variable name?", ["1name", "_name", "my-name"], "B", "Names can start with a letter or underscore."),
+    ("What is 17 // 3 ?", ["5", "5.67", "2"], "A", "// is floor division, so it drops the decimal."),
+    ("What does input() return by default?", ["int", "float", "str"], "C", "All input is a string."),
+    ("True and False = ?", ["True", "False", "Error"], "B", "and needs ALL conditions True."),
+    ("True or False = ?", ["True", "False", "Error"], "A", "or needs at least ONE True."),
+    ("How many times does for n in range(3) repeat?", ["2", "3", "4"], "B", "range(3) gives 0, 1, 2."),
+    ("Which symbol starts a comment?", ["#", "//", "--"], "A", "Python uses the hash symbol #."),
+]
+
+
+def quick_quiz():
+    questions = random.sample(QUIZ, 5)
+    score = 0
+    print("=" * 40)
+    print("\033[1m" + "            ⚡ QUICK QUIZ" + "\033[0m")
+    print("=" * 40)
+    for number, (q, choices, answer, why) in enumerate(questions, 1):
+        print(f"\n Question {number}/5: {q}")
+        for letter, text in zip("ABC", choices):
+            print(f"   {letter}) {text}")
+        while True:
+            pick = input("\n Your answer (A/B/C): ").upper()
+            if pick in ("A", "B", "C"):
+                break
+            print(" Invalid input. Please enter A, B, or C.")
+        if pick == answer:
+            print(" \033[92m✔ Correct!\033[0m " + why)
+            score += 1
+        else:
+            print(f" \033[91m✘ Not quite.\033[0m The answer is {answer}. {why}")
+    print("\n" + "-" * 40)
+    print(f" Your score: {score}/5  " + "⭐" * score + "☆" * (5 - score))
+    print("-" * 40)
+    input("\n Press Enter to go back...")
+
 
 while True:
     print("=" * 40)
     print("\033[1m" + "     * FUNDAMENTALS OF PROGRAMMING *" + "\033[0m")
     print("=" * 40)
-
+    print("\n 💬 Tip:", random.choice(TIPS))
 
     print("\n[0] INTRODUCTION")
     print("[1] PRELIMINARY LESSON")
     print("[2] MIDTERM LESSON")
     print("[3] FINAL LESSON")
+    print("[Q] ⚡ QUICK QUIZ")
     print("[E] EXIT")
 
 
@@ -75,6 +123,21 @@ while True:
                 print("=" * 100)
                 print("\033[1m" + " What is Python Programming" + "\033[0m")
                 print(" Python is a widely-used programming language that was created by\033[1m" + " Guido van Rossum in 1991." + "\033[0m")
+
+                import tkinter as tk
+                from PIL import Image, ImageTk
+
+                root = tk.Tk()
+                root.title("Python Intro")
+
+                pil_image = Image.open(r"D:\Final\picture.png")
+                pil_image = pil_image.resize((400, 500))
+                tk_image = ImageTk.PhotoImage(pil_image)
+
+                img_label = tk.Label(root, image=tk_image)
+                img_label.pack(pady=10)
+                root.mainloop()
+
                 print("\n A\033[1m" + " dutch software engineer" + "\033[0m"" best known for creating the Python programming language in 1991.")
                 print(" he designed Python with the goal of making programming simple, readable, and easy")
                 print(" to learn while remaining powerful enough for professional software development.")
@@ -1006,6 +1069,8 @@ while True:
             else:
                 print("\n Invalid choice! Please select 0, 1, 2, or X.\n")
 
+    elif choice == "Q":
+        quick_quiz()
 
     elif choice == "E":
         print("\n Exiting the Python Tutorial . Goodbye!")
