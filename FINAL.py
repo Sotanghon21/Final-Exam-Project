@@ -8,26 +8,67 @@ TIPS = [
     "Read error messages from the bottom up. The last line says what went wrong.",
 ]
 
-QUIZ = [
-    ("What does print('Hi') do?", ["Saves a file", "Shows Hi on the screen", "Asks for input"], "B", "print() displays output."),
-    ("Which is a valid variable name?", ["1name", "_name", "my-name"], "B", "Names can start with a letter or underscore."),
-    ("What is 17 // 3 ?", ["5", "5.67", "2"], "A", "// is floor division, so it drops the decimal."),
-    ("What does input() return by default?", ["int", "float", "str"], "C", "All input is a string."),
-    ("True and False = ?", ["True", "False", "Error"], "B", "and needs ALL conditions True."),
-    ("True or False = ?", ["True", "False", "Error"], "A", "or needs at least ONE True."),
-    ("How many times does for n in range(3) repeat?", ["2", "3", "4"], "B", "range(3) gives 0, 1, 2."),
-    ("Which symbol starts a comment?", ["#", "//", "--"], "A", "Python uses the hash symbol #."),
+EXAM = [
+    # (lesson, question, choices, answer, explanation)
+    ("Introduction", "Which language is easy to learn and great for beginners and data science?", ["Python", "C++", "Ruby"], "A", "Python is easy to read and great for beginners."),
+    ("Python Intro", "In what year was Python created?", ["1991", "2001", "1981"], "A", "Guido van Rossum created Python in 1991."),
+    ("Python Syntax", "If name = 'John', what does print(Name) do?", ["Prints John", "Shows an error", "Prints Name"], "B", "Python is case-sensitive, so Name is not the same as name."),
+    ("Python Output", "Which line prints the number 100 correctly?", ["print(100)", "print[100]", "say(100)"], "A", "Numbers can be printed directly without quotation marks."),
+    ("Python Comments", "Which symbol starts a single-line comment?", ["//", "#", "--"], "B", "Python uses the hash symbol #."),
+    ("Python Variables", "What does a single = do in Python?", ["Compares two values", "Assigns a value to a variable", "Prints a value"], "B", "= is the assignment operator."),
+    ("Python Data Types", "What data type is True?", ["str", "int", "bool"], "C", "True and False are boolean (bool) values."),
+    ("Arithmetic Operators", "What is 17 // 3 ?", ["5", "5.67", "2"], "A", "// is floor division, so it drops the decimal."),
+    ("Basic Input and Output", "How do you convert input into a whole number?", ["int(input())", "str(input())", "input(int)"], "A", "Wrap input() with int() to convert the text to an integer."),
+    ("Conditional Statements", "Which keyword starts a conditional statement?", ["for", "if", "print"], "B", "The if keyword starts a conditional statement."),
+    ("Relational Operators", "What does 5 >= 10 return?", ["True", "False", "Error"], "B", "5 is not greater than or equal to 10."),
+    ("If Statement", "If age = 20, what happens with: if age >= 18: print('Adult') ?", ["Adult is printed", "Nothing is printed", "An error appears"], "A", "20 >= 18 is True, so the block runs."),
+    ("If-Else Statement", "With score = 65 (if score >= 75: Passed, else: Failed), what prints?", ["Passed", "Failed", "Nothing"], "B", "65 is less than 75, so the else block runs."),
+    ("If-Elif-Else Statement", "In an if-elif-else chain, how many blocks run?", ["All of them", "Only the first True one", "None"], "B", "Python runs the first True block and skips the rest."),
+    ("Nested Condition", "A condition inside another condition is called...?", ["Nested condition", "Loop", "Variable"], "A", "That is the definition of a nested condition."),
+    ("Logical Operators", "How many logical operators does Python have (and, or, not)?", ["Two", "Three", "Four"], "B", "and, or, and not make three."),
+    ("AND Operator", "If age = 20 and has_id = False, what is: age >= 18 and has_id ?", ["True", "False", "Error"], "B", "and needs ALL conditions True, and has_id is False."),
+    ("OR Operator", "False or False = ?", ["True", "False", "Error"], "B", "or needs at least ONE True, and neither is True."),
+    ("NOT Operator", "not False = ?", ["True", "False", "Error"], "A", "not reverses the result."),
+    ("Iteration and Loops", "What does iteration mean?", ["Repeating a process", "Deleting code", "Storing data"], "A", "Iteration means repeating a process."),
+    ("For Loop", "How many times does 'for n in range(4)' repeat?", ["3", "4", "5"], "B", "range(4) gives 0, 1, 2, 3."),
+    ("While Loop", "A while loop keeps running as long as its condition is...?", ["False", "True", "Empty"], "B", "The loop stops when the condition becomes False."),
 ]
 
+PASSING_PERCENT = 75
 
-def quick_quiz():
-    questions = random.sample(QUIZ, 5)
+
+def lesson_question(question, choices, answer, why):
+    print("\n" + "-" * 40)
+    print("\033[1m" + " 🧠 CHECK YOUR UNDERSTANDING" + "\033[0m")
+    print("-" * 40)
+    print(f"\n {question}")
+    for letter, text in zip("ABC", choices):
+        print(f"   {letter}) {text}")
+    while True:
+        pick = input("\n Your answer (A/B/C): ").upper()
+        if pick in ("A", "B", "C"):
+            break
+        print(" Invalid input. Please enter A, B, or C.")
+    if pick == answer:
+        print(" \033[92m✔ Correct!\033[0m " + why)
+    else:
+        print(f" \033[91m✘ Not quite.\033[0m The answer is {answer}. {why}")
+
+
+def take_exam():
+    total = len(EXAM)
     score = 0
+    missed = []
     print("=" * 40)
-    print("\033[1m" + "            ⚡ QUICK QUIZ" + "\033[0m")
+    print("\033[1m" + "      📝 EXAM - ALL LESSONS" + "\033[0m")
     print("=" * 40)
-    for number, (q, choices, answer, why) in enumerate(questions, 1):
-        print(f"\n Question {number}/5: {q}")
+    print(f"\n This exam has {total} questions, one from every lesson.")
+    print(f" Passing score: {PASSING_PERCENT}%")
+    input("\n Press Enter to start...")
+    for number, (topic, q, choices, answer, why) in enumerate(EXAM, 1):
+        print("\n" + "-" * 40)
+        print(f" Question {number}/{total}   [{topic}]")
+        print(f"\n {q}")
         for letter, text in zip("ABC", choices):
             print(f"   {letter}) {text}")
         while True:
@@ -40,10 +81,39 @@ def quick_quiz():
             score += 1
         else:
             print(f" \033[91m✘ Not quite.\033[0m The answer is {answer}. {why}")
-    print("\n" + "-" * 40)
-    print(f" Your score: {score}/5  " + "⭐" * score + "☆" * (5 - score))
-    print("-" * 40)
+            missed.append(topic)
+    percent = round(score / total * 100)
+    print("\n" + "=" * 40)
+    print("\033[1m" + "           EXAM RESULT" + "\033[0m")
+    print("=" * 40)
+    print(f"\n Your score: {score}/{total}  ({percent}%)")
+    if percent >= PASSING_PERCENT:
+        print(" \033[92m🎉 PASSED! Great job!\033[0m")
+    else:
+        print(" \033[91m📚 Not yet. Review the lessons below and try again.\033[0m")
+    if missed:
+        print("\n Lessons to review:")
+        for topic in missed:
+            print(f"   • {topic}")
+    else:
+        print("\n Perfect score! You know all the lessons.")
     input("\n Press Enter to go back...")
+
+
+def back_or_quiz(destination):
+    while True:
+        print("\n" + "-" * 40)
+        print(" [Q] 📝 Take the exam (all lessons)")
+        print(f" [X] Back to {destination}")
+        pick = input("\n Your choice: ").upper()
+        if pick == "X":
+            print("\n" * 2)
+            return
+        elif pick == "Q":
+            print("\n")
+            take_exam()
+        else:
+            print(" Invalid input. Please enter 'Q' or 'X'.")
 
 
 while True:
@@ -56,7 +126,7 @@ while True:
     print("[1] PRELIMINARY LESSON")
     print("[2] MIDTERM LESSON")
     print("[3] FINAL LESSON")
-    print("[Q] ⚡ QUICK QUIZ")
+    print("[Q] 📝 EXAM (ALL LESSONS)")
     print("[E] EXIT")
 
 
@@ -88,13 +158,9 @@ while True:
 
         print("\n 💡  Each language has its own strengths. Choose the right tool for the right job!   </>")
 
-        while True:
-            back = input("\n Select [X] to return to the main list: ").upper()
-            if back == "X":
-                print("\n" * 2)
-                break
-            else:
-                print(" Invalid input. Please enter 'X' to return.")
+        lesson_question("Which language is known as the language of the web?", ["Python", "JavaScript", "C++"], "B", "JavaScript adds interactivity to websites.")
+
+        back_or_quiz("the main list")
 
 
     elif choice == "1":
@@ -146,13 +212,9 @@ while True:
                 print(" print('Hello World')")
                 print(" The print() function displays text on the screen")
 
-                while True:
-                    back = input("\n Select [X] to return to the prelim list: ").upper()
-                    if back == "X":
-                        print("\n" * 2)
-                        break
-                    else:
-                        print(" Invalid input. Please enter 'X' to return.")
+                lesson_question("Who created Python?", ["Guido van Rossum", "Bill Gates", "Linus Torvalds"], "A", "Guido van Rossum created Python in 1991.")
+
+                back_or_quiz("the prelim list")
 
 
             elif prelim_choice == "2":
@@ -179,13 +241,9 @@ while True:
                 print(" if age >= 18:    ←  Check condition")
                 print("    print('Adult') ←  Indented (inside the block)")
 
-                while True:
-                    back = input("\n Select [X] to return to the prelim list: ").upper()
-                    if back == "X":
-                        print("\n" * 2)
-                        break
-                    else:
-                        print(" Invalid input. Please enter 'X' to return.")
+                lesson_question("What does Python use to define blocks of code?", ["Curly braces", "Indentation", "Semicolons"], "B", "Python uses indentation (spaces).")
+
+                back_or_quiz("the prelim list")
 
             elif prelim_choice == "3":
                 print("=" * 40)
@@ -230,13 +288,9 @@ while True:
                 print(" print('100')          ⟶      100       Values inside quotes are       ")
                 print(" print('25.5')                25.5      text (strings). ")
 
-                while True:
-                    back = input("\n Select [X] to return to the prelim list: ").upper()
-                    if back == "X":
-                        print("\n" * 2)
-                        break
-                    else:
-                        print(" Invalid input. Please enter 'X' to return.")
+                lesson_question("Which line prints text correctly?", ["print(Hello)", "print('Hello')", "print Hello"], "B", "Text must be inside quotation marks.")
+
+                back_or_quiz("the prelim list")
 
             elif prelim_choice == "4":
                 print("=" * 100)
@@ -266,13 +320,9 @@ while True:
                 print("                                     • Describing functions")
                 print("                                     • Adding documentation")
 
-                while True:
-                    back = input("\n Select [X] to return to the prelim list: ").upper()
-                    if back == "X":
-                        print("\n" * 2)
-                        break
-                    else:
-                        print(" Invalid input. Please enter 'X' to return.")
+                lesson_question("What does Python do with a comment when the program runs?", ["Prints it", "Ignores it", "Shows an error"], "B", "Comments are ignored by Python.")
+
+                back_or_quiz("the prelim list")
 
             elif prelim_choice == "5":
                 print("=" * 100)
@@ -358,13 +408,9 @@ while True:
                 print("                                              of a, b, and c, separated")
                 print("                                              by space.")
 
-                while True:
-                    back = input("\n Select [X] to return to the prelim list: ").upper()
-                    if back == "X":
-                        print("\n" * 2)
-                        break
-                    else:
-                        print(" Invalid input. Please enter 'X' to return.")
+                lesson_question("Which is a valid variable name?", ["2total", "_value", "my-name"], "B", "Names can start with a letter or underscore, not a number.")
+
+                back_or_quiz("the prelim list")
 
             elif prelim_choice == "6":
                 print("=" * 100)
@@ -391,13 +437,9 @@ while True:
                 print(" is_enrolled =\033[1m " + "True""\033[0m""         is_enrolled""    True""      bool""          Stores True or ")
                 print("                                                     (boolean)     False values.")
 
-                while True:
-                    back = input("\n Select [X] to return to the prelim list: ").upper()
-                    if back == "X":
-                        print("\n" * 2)
-                        break
-                    else:
-                        print(" Invalid input. Please enter 'X' to return.")
+                lesson_question("What data type is 89.5?", ["str", "int", "float"], "C", "Numbers with a decimal point are floats.")
+
+                back_or_quiz("the prelim list")
 
             elif prelim_choice == "7":
                 print("=" * 100)
@@ -440,13 +482,9 @@ while True:
                 print("| S Subtraction              | Last  |")
                 print("______________________________________")
 
-                while True:
-                    back = input("\n Select [X] to return to the prelim list: ").upper()
-                    if back == "X":
-                        print("\n" * 2)
-                        break
-                    else:
-                        print(" Invalid input. Please enter 'X' to return.")
+                lesson_question("What is 10 % 3 ?", ["1", "3", "0"], "A", "% gives the remainder of the division.")
+
+                back_or_quiz("the prelim list")
 
             elif prelim_choice == "8":
                 print("=" * 100)
@@ -493,13 +531,9 @@ while True:
                 print(" grade = float(input('Enter your final grade:')")
                 print(" print(f'Student: {name}, Age: {age}, Final Grade: {grade}')")
 
-                while True:
-                    back = input("\n Select [X] to return to the prelim list: ").upper()
-                    if back == "X":
-                        print("\n" * 2)
-                        break
-                    else:
-                        print(" Invalid input. Please enter 'X' to return.")
+                lesson_question("What type does input() return by default?", ["int", "str", "float"], "B", "All input is a string unless you convert it.")
+
+                back_or_quiz("the prelim list")
 
             elif prelim_choice == "X":
                 break
@@ -560,13 +594,9 @@ while True:
                               print("                                                          ↓")
                               print("                                                         End")
 
-                              while True:
-                                  back1 = input("\n Select [X] to return to the midterm chapter list: ").upper()
-                                  if back1 == "X":
-                                      print("\n" * 2)
-                                      break
-                                  else:
-                                      print(" Invalid input. Please enter 'X' to return.")
+                              lesson_question("A conditional statement runs its block when the condition is...?", ["True", "False", "Empty"], "A", "The indented block runs only when the condition is True.")
+
+                              back_or_quiz("the midterm chapter list")
 
                           elif chap_choice == "1":
                               print("=" * 100)
@@ -586,13 +616,9 @@ while True:
                               print("\n\033[1m " + "💡 Remember:""\033[0m")
                               print(" Relational operators compare values and always return either ""\033[1m " + "True or False.""\033[0m\n")
 
-                              while True:
-                                  back1 = input("\n Select [X] to return to the midterm chapter list: ").upper()
-                                  if back1 == "X":
-                                      print("\n" * 2)
-                                      break
-                                  else:
-                                      print(" Invalid input. Please enter 'X' to return.")
+                              lesson_question("What does 10 != 5 return?", ["False", "True", "Error"], "B", "10 is not equal to 5, so the result is True.")
+
+                              back_or_quiz("the midterm chapter list")
 
                           elif chap_choice == "2":
                               print("=" * 100)
@@ -620,13 +646,9 @@ while True:
                               print("\n 💡 If the condition is\033[1m " + "False,""\033[0m")
                               print(" the indented block is skipped.\n")
 
-                              while True:
-                                  back1 = input("\n Select [X] to return to the midterm chapter list: ").upper()
-                                  if back1 == "X":
-                                      print("\n" * 2)
-                                      break
-                                  else:
-                                      print(" Invalid input. Please enter 'X' to return.")
+                              lesson_question("If age = 15, what does 'if age >= 18: print(\"Adult\")' do?", ["Prints Adult", "Nothing happens", "Shows an error"], "B", "The condition is False, so the block is skipped.")
+
+                              back_or_quiz("the midterm chapter list")
 
                           elif chap_choice == "3":
                               print("=" * 100)
@@ -649,13 +671,9 @@ while True:
                               print(" • Only one of the ""\033[1m " + "if  ""\033[0m""or""\033[1m " + "else ""\033[0m""block""                so the""\033[1m " + "else ""\033[0m""block runs an the program prints""\033[1m " + "Failed. ""\033[0m")
                               print("   will be executed.\n")
 
-                              while True:
-                                  back1 = input("\n Select [X] to return to the midterm chapter list: ").upper()
-                                  if back1 == "X":
-                                      print("\n" * 2)
-                                      break
-                                  else:
-                                      print(" Invalid input. Please enter 'X' to return.")
+                              lesson_question("When does the else block run?", ["Never", "When the if condition is True", "When the if condition is False"], "C", "else is the alternative when the if is False.")
+
+                              back_or_quiz("the midterm chapter list")
 
                           elif chap_choice == "4":
                               print("=" * 100)
@@ -682,13 +700,9 @@ while True:
                               print(" • If none of the condition are True,")
                               print("   the else block is executed.")
 
-                              while True:
-                                  back1 = input("\n Select [X] to return to the midterm chapter list: ").upper()
-                                  if back1 == "X":
-                                      print("\n" * 2)
-                                      break
-                                  else:
-                                      print(" Invalid input. Please enter 'X' to return.")
+                              lesson_question("With score = 85 (checks: >= 90, >= 80, >= 75), what prints first?", ["Excellent", "Very Good", "Passed"], "B", "85 >= 80 is the first True condition, so the rest are skipped.")
+
+                              back_or_quiz("the midterm chapter list")
 
                           elif chap_choice == "5":
                               print("=" * 100)
@@ -721,13 +735,9 @@ while True:
                               print("     else:")
                               print("         print('You are a female, but not a debutant yet.')")
 
-                              while True:
-                                  back1 = input("\n Select [X] to return to the midterm chapter list: ").upper()
-                                  if back1 == "X":
-                                      print("\n" * 2)
-                                      break
-                                  else:
-                                      print(" Invalid input. Please enter 'X' to return.")
+                              lesson_question("When is the inner condition checked?", ["Always", "Never", "Only if the outer condition is True"], "C", "The inner condition lives inside the outer block.")
+
+                              back_or_quiz("the midterm chapter list")
 
                           elif chap_choice == "X":
                               break
@@ -763,13 +773,9 @@ while True:
                               print("       or""             At least one condition must be True""       if age >= 18 and age <= 60:")
                               print("       not""            Reverses the result""                       print('Allowed')\n")
 
-                              while True:
-                                  back1 = input("\n Select [X] to return to the midterm chapter list: ").upper()
-                                  if back1 == "X":
-                                      print("\n" * 2)
-                                      break
-                                  else:
-                                      print(" Invalid input. Please enter 'X' to return.")
+                              lesson_question("Which of these is NOT a logical operator?", ["and", "or", "=="], "C", "== is a relational operator.")
+
+                              back_or_quiz("the midterm chapter list")
 
                           elif chap2_choice == "1":
                               print("=" * 100)
@@ -798,13 +804,9 @@ while True:
                               print("\n\033[1m " + "💡 Easy way to remember:""\033[0m")
                               print(" AND = KAILANGAN LAHAT TRUE\n")
 
-                              while True:
-                                  back1 = input("\n Select [X] to return to the midterm chapter list: ").upper()
-                                  if back1 == "X":
-                                      print("\n" * 2)
-                                      break
-                                  else:
-                                      print("Invalid input. Please enter 'X' to return.")
+                              lesson_question("True and False = ?", ["True", "False", "Error"], "B", "and needs ALL conditions to be True.")
+
+                              back_or_quiz("the midterm chapter list")
 
                           elif chap2_choice == "2":
 
@@ -832,13 +834,9 @@ while True:
                               print("│     False     │     False     │    False    │")
                               print("‾" * 47)
 
-                              while True:
-                                  back1 = input("\n Select [X] to return to the midterm chapter list: ").upper()
-                                  if back1 == "X":
-                                      print("\n" * 2)
-                                      break
-                                  else:
-                                      print(" Invalid input. Please enter 'X' to return.")
+                              lesson_question("False or True = ?", ["True", "False", "Error"], "A", "or needs at least ONE True.")
+
+                              back_or_quiz("the midterm chapter list")
 
                           elif chap2_choice == "3":
 
@@ -872,13 +870,9 @@ while True:
                               print("\n\033[1m " + "💡 Easy way to remember:""\033[0m")
                               print(" NOT = BALIKTARIN ANG RESULT\n")
 
-                              while True:
-                                  back1 = input("\n Select [X] to return to the midterm chapter list: ").upper()
-                                  if back1 == "X":
-                                      print("\n" * 2)
-                                      break
-                                  else:
-                                      print(" Invalid input. Please enter 'X' to return.")
+                              lesson_question("not True = ?", ["True", "False", "Error"], "B", "not reverses the result.")
+
+                              back_or_quiz("the midterm chapter list")
 
                           elif chap2_choice == "X":
                            break
@@ -960,13 +954,9 @@ while True:
                 print(
                     "\n                                    \033[1m " + "Both example print Hello! three times.""\033[0m")
 
-                while True:
-                    back1 = input("\n Select [X] to return to the main list: ").upper()
-                    if back1 == "X":
-                        print("\n" * 2)
-                        break
-                    else:
-                        print(" Invalid input. Please enter 'X' to return.")
+                lesson_question("Each repetition of a loop is called a(n)...?", ["Iteration", "Function", "Variable"], "A", "Each repeat of the loop body is one iteration.")
+
+                back_or_quiz("the main list")
 
 
             elif final_choice == "1":
@@ -1007,13 +997,9 @@ while True:
                 print("                 |___________________|")
                 print("                     5 iterations")
 
-                while True:
-                    back1 = input("\n Select [X] to return to the final lesson list: ").upper()
-                    if back1 == "X":
-                        print("\n" * 2)
-                        break
-                    else:
-                        print(" Invalid input. Please enter 'X' to return.")
+                lesson_question("How many times does 'for n in range(1, 6)' repeat?", ["4", "5", "6"], "B", "It gives 1, 2, 3, 4, 5 (6 is excluded).")
+
+                back_or_quiz("the final lesson list")
 
 
             elif final_choice == "2":
@@ -1054,13 +1040,9 @@ while True:
                 print("                 |___________________|")
                 print("                     5 iterations")
 
-                while True:
-                    back1 = input("\n Select [X] to return to the final lesson list: ").upper()
-                    if back1 == "X":
-                        print("\n" * 2)
-                        break
-                    else:
-                        print(" Invalid input. Please enter 'X' to return.")
+                lesson_question("What does count += 1 do?", ["Resets count", "Subtracts 1", "Adds 1 to count"], "C", "+= adds to the current value.")
+
+                back_or_quiz("the final lesson list")
 
 
             elif final_choice == "X":
@@ -1070,7 +1052,7 @@ while True:
                 print("\n Invalid choice! Please select 0, 1, 2, or X.\n")
 
     elif choice == "Q":
-        quick_quiz()
+        take_exam()
 
     elif choice == "E":
         print("\n Exiting the Python Tutorial . Goodbye!")
