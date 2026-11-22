@@ -1,3 +1,94 @@
+def run_quiz():
+    questions = [
+        ("Who created the Python programming language?",
+         ["Guido van Rossum", "Bill Gates", "Elon Musk", "Linus Torvalds"], "A"),
+        ("Which function displays output on the screen?",
+         ["show()", "print()", "display()", "output()"], "B"),
+        ("Python is case-sensitive. Which statement is TRUE?",
+         ["name and Name are the same variable",
+          "Python ignores uppercase letters",
+          "name and Name are two different variables",
+          "Variables must be written in capital letters"], "C"),
+        ("Which symbol starts a single-line comment in Python?",
+         ["//", "#", "--", "/*"], "B"),
+        ("Which is a VALID variable name?",
+         ["1stValue", "2total", "my name", "_value"], "D"),
+        ("What is the data type of 25.5?",
+         ["float", "int", "str", "bool"], "A"),
+        ("What is the data type of 'Maria'?",
+         ["int", "float", "str", "bool"], "C"),
+        ("What is the result of 17 // 3?",
+         ["5.67", "5", "6", "2"], "B"),
+        ("What is the result of 10 % 3?",
+         ["3", "0", "3.33", "1"], "D"),
+        ("What is the result of 2 ** 3?",
+         ["8", "6", "5", "9"], "A"),
+        ("What data type does input() return by default?",
+         ["int", "float", "str", "bool"], "C"),
+        ("Which line correctly converts user input to an integer?",
+         ["age = input(int('Age: '))", "age = int(input('Age: '))",
+          "age = str(input('Age: '))", "age = integer('Age: ')"], "B"),
+        ("Which operator means 'not equal to'?",
+         ["==", "=!", "<>", "!="], "D"),
+        ("Which expression evaluates to True?",
+         ["10 >= 10", "5 > 10", "10 != 10", "3 == 4"], "A"),
+        ("Which keyword provides an alternative when the if condition is False?",
+         ["elseif", "otherwise", "else", "then"], "C"),
+        ("A condition placed inside another condition is called:",
+         ["A loop", "A nested condition", "A function", "A comment"], "B"),
+        ("What is the result of: True and False?",
+         ["True", "None", "Error", "False"], "D"),
+        ("What is the result of: not True?",
+         ["False", "True", "None", "Error"], "A"),
+        ("What numbers does range(1, 6) produce?",
+         ["1 to 6", "0 to 5", "1 to 5", "2 to 6"], "C"),
+        ("Which loop repeats instructions WHILE a condition is true?",
+         ["for loop", "while loop", "if loop", "do loop"], "B"),
+    ]
+
+    print("=" * 100)
+    print("\033[1m" + "                                          PYTHON QUIZ (20 ITEMS)" + "\033[0m")
+    print("=" * 100)
+    print(" Choose the correct answer by typing A, B, C, or D.\n")
+
+    score = 0
+    for number, (question, options, answer) in enumerate(questions, start=1):
+        print(f"\033[1m Question {number}/20:\033[0m {question}")
+        for letter, option in zip("ABCD", options):
+            print(f"   [{letter}] {option}")
+
+        while True:
+            user = input("\n Your answer: ").strip().upper()
+            if user in ("A", "B", "C", "D"):
+                break
+            print(" Invalid input. Please enter A, B, C, or D.")
+
+        if user == answer:
+            score += 1
+            print(" ✔ Correct!\n")
+        else:
+            correct_text = options["ABCD".index(answer)]
+            print(f" ✘ Wrong. The correct answer is [{answer}] {correct_text}\n")
+
+    print("=" * 100)
+    print(f"\033[1m YOUR SCORE: {score} / 20\033[0m")
+    percent = score / 20 * 100
+    print(f" Percentage: {percent:.0f}%")
+    if percent >= 90:
+        print(" Excellent! You really understand Python basics. 🌟")
+    elif percent >= 75:
+        print(" Great job! You passed. Keep practicing. 👍")
+    else:
+        print(" Keep studying! Review the lessons and try again. 💪")
+    print("=" * 100)
+
+    while True:
+        back = input("\n Select [X] to return to the main list: ").upper()
+        if back == "X":
+            print("\n" * 2)
+            break
+        else:
+            print(" Invalid input. Please enter 'X' to return.")
 
 while True:
     print ("=" * 40)
@@ -8,8 +99,8 @@ while True:
     print("[1] PRELIMINARY LESSON")
     print("[2] MIDTERM LESSON")
     print("[3] FINAL LESSON")
+    print("[4] QUIZ")
     print("[E] EXIT")
-
 
     choice = input("\n Enter your lesson: ").upper()
 
@@ -85,7 +176,7 @@ while True:
                 from PIL import Image, ImageTk
 
                 root = tk.Tk()
-                root.title("Python Intro")
+                root.title("Guido van Rossum")
 
                 pil_image = Image.open(r"D:\Final\picture.png")
                 pil_image = pil_image.resize((400, 500))
@@ -396,6 +487,20 @@ while True:
                 print("| A Addition                 |   ↓   |")
                 print("| S Subtraction              | Last  |")
                 print("______________________________________")
+
+                import tkinter as tk
+                from PIL import Image, ImageTk
+
+                root = tk.Tk()
+                root.title("Python Arithmetic Operators")
+
+                pil_image = Image.open(r"D:\Final\Arithmetic.png")
+                pil_image = pil_image.resize((1000, 800))
+                tk_image = ImageTk.PhotoImage(pil_image)
+
+                img_label = tk.Label(root, image=tk_image)
+                img_label.pack(pady=10)
+                root.mainloop()
 
                 while True:
                     back = input("\nSelect [X] to return to the prelim menu: ").upper()
@@ -849,16 +954,187 @@ while True:
 
 
     elif choice == "3":
-        print("=" * 100)
-        print("                       \033[1m " + "INTRODUCTION TO ITERATION AND LOOPS""\033[0m")
-        print("=" * 100)
+        while True:
+            print("=" * 40)
+            print("\033[1m " + "          FINAL LESSON LIST""\033[0m")
+            print("=" * 40)
 
-        input("\n Press (Enter) to Return to the main menu... ").upper()
-        print("\n" * 2)
+            print("\n [0] INTRODUCTION TO ITERATION AND LOOPS")
+            print(" [1] PYTHON FOR LOOP")
+            print(" [2] PYTHON WHILE LOOP")
+            print(" [X] BACK TO MAIN MENU")
 
-    elif choice == "X":
+            final_choice = input("\n Enter your sub-lesson: ").upper()
+
+            if final_choice == "0":
+                print("=" * 100)
+                print("                       \033[1m " + "INTRODUCTION TO ITERATION AND LOOPS""\033[0m")
+                print("=" * 100)
+
+                print("                        Iteration means repeating a process.")
+                print("      In programming, it means repeatedly executing  a set of instructions.")
+                print("                       Each repetition is called in iteration.")
+
+                print("\n 🔴🟡🟢""                                              1")
+                print(" for number in range(3):""                              Welcome to Python")
+                print("    print('Welcome to Python')""      -------⟶         2")
+                print("                                                      Welcome to Python")
+                print("                                                     3")
+                print("                                                      Welcome to Python")
+                print("\n The print() instruction executes once during each iteration\n")
+
+                print(" Iteration allows a program to perform the same task multiple times.")
+                print(" Without a loop, instructions must be written repeatedly\n")
+
+                print("=" * 55)
+                print(
+                    "\033[1m" + "│     Without a loop:      │""\033[0m""\033[1m " + "     Using a loop:      │""\033[0m")
+                print("=" * 55)
+                print("│  print('Study Python')   │""  for number in range(4):│")
+                print("│  print('Study Python')   │ " "    print(Study Python) │")
+                print("│  print('Study Python')   │ " "                        │")
+                print("‾" * 55)
+                print("\n\033[1m " + "Both programs produce the same output, but the loop makes the""\033[0m")
+                print("\033[1m " + "program shorter and easier to modify. To repeat the message 100 times,""\033[0m")
+                print("\033[1m " + "change 4 to 100.""\033[0m\n")
+
+                print("=" * 100)
+                print("                       \033[1m " + "             Types of loops in Python""\033[0m")
+                print("=" * 100)
+
+                print("\n Python has two main types of loops:for and while.")
+                print("\n\033[1m " + "                   For Loop""\033[0m""\033[1m " + "                                                 While Loop""\033[0m")
+                print("\n Repeats instruction for ech item in a sequence.""             Repeats instructions while a condition is true")
+                print(" Useful when the number of repetitions is known.""             Useful when repetition depends on a condition.")
+                print("\n          for number in range(3):""                                          count = 1")
+                print("                print('Hello!')""                                            while count <= 3: ")
+                print("                                                                               print('Hello!')")
+                print("       1                2                3""                                     count += 1")
+                print("     Hello!    ---⟶   Hello!    ---⟶  Hello!")
+                print("                                                                        Check condition ---⟶ Repeat")
+                print("\n                                    \033[1m " + "Both example print Hello! three times.""\033[0m")
+
+                while True:
+                    back1 = input("\nSelect [X] to return to the midterm chapter menu: ").upper()
+                    if back1 == "X":
+                        print("\n" * 2)
+                        break
+                    else:
+                        print("Invalid input. Please enter 'X' to return.")
+
+
+            elif final_choice == "1":
+                print("=" * 100)
+                print("                                            \033[1m " + "PYTHON FOR LOOPS""\033[0m")
+                print("=" * 100)
+
+                print(
+                    "\n A for loop is used for iterating over a sequence (that is either a list, a tuple, a dictionary, a set, or a string).")
+                print(
+                    " This is less like the for keyword in other programming languages, and works more like an iterator ")
+                print(" method as found in other object-orientated programming languages.")
+                print(
+                    "\n With the for loop we can execute a set of statements, once for each item in a list, tuple, set etc.")
+
+                print(
+                    "\n\033[1m " + "       Syntax""\033[0m""\033[1m " + "                                      Example Code""\033[0m")
+                print("   for variable in sequence:""                   for number in range(4):")
+                print("   statement(s)""                                    print('Study Python')")
+                print("\n variable: receives each item")
+                print(" sequence: items to loop through"" This loop prints Study Python four times.")
+                print(" Indented statements: the loop body")
+                print("\n\033[1m " + "Use a colon (:) after the loop header and indent the loop body.""\033[0m")
+
+                print("\n\033[1m " + "for loop: Print Numbers 1 to 5""\033[0m\n")
+                print("=" * 50)
+                print("│  Example Code""                         Output   │")
+                print("=" * 50)
+                print("│  for number in range(1, 6):""           1        │")
+                print("│      print(number)""                    2        │")
+                print("│                                       3        │")
+                print("│                                       4        │")
+                print("│                                       5        │")
+                print("‾" * 50)
+
+                print("\n\033[1m " + "How It Works ""\033[0m")
+                print(" 1. range(1, 6) produce 1, 2, 3, 4, and 5. ")
+                print(" 2. The start value 1 is included; the stop value 6 is excluded.")
+                print(" 3. Each iteration assigns the next value to number.")
+                print(" 4. print(number) displays that value. After 5, the loop ends.\n")
+                print("                 1 -⟶ 2 -⟶ 3 -⟶ 4 -⟶ 5")
+                print("                 |___________________|")
+                print("                     5 iterations")
+
+                while True:
+                    back1 = input("\nSelect [X] to return to the midterm chapter menu: ").upper()
+                    if back1 == "X":
+                        print("\n" * 2)
+                        break
+                    else:
+                        print("Invalid input. Please enter 'X' to return.")
+
+            elif final_choice == "2":
+
+                print("=" * 100)
+                print("                                            \033[1m " + "PYTHON WHILE LOOP""\033[0m")
+                print("=" * 100)
+
+                print("\nWith the while loop we can execute a set of statements as long as a condition is true.")
+
+                print(
+                    "\n\033[1m " + "       Syntax""\033[0m""\033[1m " + "                                      Example Code""\033[0m")
+                print("   while condition:""                                count = 1")
+                print("   statement(s)""                                    while count <= 5:")
+                print("                                                        print(count)")
+                print(" condition: checked before each iteration""               count += 1")
+                print(" Indented statements: run while the")
+                print(" condition is True.""                               This loop prints the numbers 1 to 5.")
+                print("\n\033[1m " + "count += 1 increase count by 1 each iteration.""\033[0m")
+                print("\033[1m " + "When count becomes 6, the condition is false and the loops stops.""\033[0m")
+
+                print("\n\033[1m " + "Counting Downward with a while loop: 5 to 1" + "\033[0m")
+                print("=" * 50)
+                print("│  Example Code""                         Output   │")
+                print("=" * 50)
+                print("│  number = 5""                           5        │")
+                print("│  while number >= 1:""                   4        │")
+                print("│      print(number)""                    3        │")
+                print("│      number -= 1                      2        │")
+                print("│                                       1        │")
+                print("‾" * 50)
+
+                print("\n\033[1m " + "How It Works ""\033[0m")
+                print(" 1. Start with number = 5.")
+                print(" 2. Repeat while number >= 1.")
+                print(" 3. Print number, then decrease it by 1 using number -= 1.")
+                print(" 4. Stop when number becomes 0 and the condition is False.\n")
+                print("                 5 -⟶ 4 -⟶ 3 -⟶ 2 -⟶ 1")
+                print("                 |___________________|")
+                print("                     5 iterations")
+
+                while True:
+                    back1 = input("\nSelect [X] to return to the midterm chapter menu: ").upper()
+                    if back1 == "X":
+                        print("\n" * 2)
+                        break
+                    else:
+                        print("Invalid input. Please enter 'X' to return.")
+
+            elif final_choice == "X":
+                break
+
+            else:
+                print("\n Invalid choice! Please select 0, 1, 2, or X.\n")
+
+
+    elif choice == "4":
+        run_quiz()
+
+
+    elif choice == "E":
         break
 
+
     else:
-        print("\n Invalid choice! Please select 0, 1, 2, 3, or X.\n")
+        print("\n Invalid choice! Please select 0, 1, 2, 3, 4, or E.\n")
 
