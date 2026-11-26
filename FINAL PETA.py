@@ -818,9 +818,7 @@ while True:
                           print(" [3] THE NOT OPERATOR")
                           print(" [X] BACK TO MIDTERM LESSON " )
 
-
                           chap2_choice = input("\n Enter your chapter-lesson: ").upper()
-                          qq
 
                           if chap2_choice == "0":
                               print("=" * 100)
